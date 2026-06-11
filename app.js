@@ -1,0 +1,1 @@
+// Placeholder for Firebase authentication and admin logic
