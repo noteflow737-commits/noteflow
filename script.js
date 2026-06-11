@@ -1,4 +1,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAM8zmBFYHixjn6mF8Sdr98Bz-pZruoZpo",
@@ -11,5 +16,16 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 console.log("Firebase connected");
+
+document.getElementById("loginBtn").addEventListener("click", async () => {
+  const snapshot = await getDocs(collection(db, "students"));
+
+  snapshot.forEach((doc) => {
+    console.log(doc.id, doc.data());
+  });
+
+  alert("Firestore connected! Check Console.");
+});
