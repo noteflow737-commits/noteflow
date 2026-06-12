@@ -27,7 +27,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   const snapshot = await getDocs(collection(db, "students"));
 
   let loginSuccess = false;
-
+  
   snapshot.forEach((doc) => {
     const student = doc.data();
 
