@@ -21,31 +21,33 @@ const db = getFirestore(app);
 console.log("Firebase connected");
 
 document.getElementById("loginBtn").addEventListener("click", async () => {
+
   const studentName = document.getElementById("studentName").value.trim();
   const accessCode = document.getElementById("accessCode").value.trim();
 
   const snapshot = await getDocs(collection(db, "students"));
 
-  let loginSuccess = false;
-  
+  let found = false;
+
   snapshot.forEach((doc) => {
     const student = doc.data();
 
- if (
-  student.username === studentName &&
-  student.accessCode === accessCode
-) {
-  if (student.blocked === true) {
-    alert("Account Blocked");
-    return;
-  }
+    if (
+      student.username === studentName &&
+      student.accessCode === accessCode
+    ) {
+      found = true;
 
-  alert("Login Successful!");
-  return;
-  if (loginSuccess) {
-    alert("Login Successful!");
-  } else {
+      if (student.blocked === true) {
+        alert("Account Blocked");
+      } else {
+        alert("Login Successful!");
+      }
+    }
+  });
+
+  if (!found) {
     alert("Invalid Name or Access Code");
   }
+
 });
-alert("Invalid Name or Access Code");
