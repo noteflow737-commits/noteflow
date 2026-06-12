@@ -1,9 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAM8zmBFYHixjn6mF8Sdr98Bz-pZruoZpo",
@@ -21,7 +17,6 @@ const db = getFirestore(app);
 console.log("Firebase connected");
 
 document.getElementById("loginBtn").addEventListener("click", async () => {
-
   const studentName = document.getElementById("studentName").value.trim();
   const accessCode = document.getElementById("accessCode").value.trim();
 
@@ -38,11 +33,10 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
     ) {
       found = true;
 
-  if (student.blocked === true) {
-  alert("Account Blocked");
-} else {
-  window.location.href = "notes.html";
-}
+      if (student.blocked === true) {
+        alert("Account Blocked");
+      } else {
+        window.location.href = "notes.html";
       }
     }
   });
@@ -50,5 +44,4 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   if (!found) {
     alert("Invalid Name or Access Code");
   }
-
 });
