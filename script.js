@@ -1,8 +1,14 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAM8zmBFYHixjn6mF8Sdr98Bz-pZruoZpo",
+  apiKey:  "AIzaSyAM8zmBFYHixjn6mF8Sdr98Bz-pZruoZpo",
   authDomain: "noteflow-9aa06.firebaseapp.com",
   projectId: "noteflow-9aa06",
   storageBucket: "noteflow-9aa06.firebasestorage.app",
@@ -14,18 +20,28 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-console.log("Firebase connected");
+function getDeviceId() {
+  let deviceId = localStorage.getItem("deviceId");
+
+  if (!deviceId) {
+    deviceId = crypto.randomUUID();
+    localStorage.setItem("deviceId", deviceId);
+  }
+
+  return deviceId;
+}
 
 document.getElementById("loginBtn").addEventListener("click", async () => {
   const studentName = document.getElementById("studentName").value.trim();
   const accessCode = document.getElementById("accessCode").value.trim();
 
   const snapshot = await getDocs(collection(db, "students"));
+  const currentDeviceId = getDeviceId();
 
   let found = false;
 
-  snapshot.forEach((doc) => {
-    const student = doc.data();
+  for (const studentDoc of snapshot.docs) {
+    const student = studentDoc.data();
 
     if (
       student.username === studentName &&
@@ -35,11 +51,30 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 
       if (student.blocked === true) {
         alert("Account Blocked");
-      } else {
-        window.location.href = "notes.html";
+        return;
       }
+
+      // First login: lock account to this device
+      if (!student.deviceId) {
+        await updateDoc(doc(db, "students", studentDoc.id), {
+          deviceId: currentDeviceId
+        });
+
+        window.location.href = "notes.html";
+        return;
+      }
+
+      // Same device: allow login
+      if (student.deviceId === currentDeviceId) {
+        window.location.href = "notes.html";
+        return;
+      }
+
+      // Different device: block login
+      alert("This account is already being used on another device.");
+      return;
     }
-  });
+  }
 
   if (!found) {
     alert("Invalid Name or Access Code");
