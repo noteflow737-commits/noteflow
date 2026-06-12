@@ -21,20 +21,17 @@ const db = getFirestore(app);
 console.log("Firebase connected");
 
 document.getElementById("loginBtn").addEventListener("click", async () => {
-  const snapshot = await getDocs(collection(db, "students"));
 
-  snapshot.forEach((doc) => {
-    console.log(doc.id, doc.data());
-  });
-const studentName = document.getElementById("studentName").value;
-const accessCode = document.getElementById("accessCode").value;
+  const studentName = document.getElementById("studentName").value;
+  const accessCode = document.getElementById("accessCode").value;
 
-if (
-  studentName === "Aqdas" &&
-  accessCode === "TEST123"
-) {
-  alert("Login Successful!");
-} else {
-  alert("Invalid Name or Access Code");
-}");
+  if (
+    studentName === "Aqdas" &&
+    accessCode === "TEST123"
+  ) {
+    alert("Login Successful!");
+  } else {
+    alert("Invalid Name or Access Code");
+  }
+
 });
