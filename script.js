@@ -31,17 +31,21 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   snapshot.forEach((doc) => {
     const student = doc.data();
 
-    if (
-      student.username === studentName &&
-      student.accessCode === accessCode
-    ) {
-      loginSuccess = true;
-    }
-  });
+ if (
+  student.username === studentName &&
+  student.accessCode === accessCode
+) {
+  if (student.blocked === true) {
+    alert("Account Blocked");
+    return;
+  }
 
+  alert("Login Successful!");
+  return;
   if (loginSuccess) {
     alert("Login Successful!");
   } else {
     alert("Invalid Name or Access Code");
   }
 });
+alert("Invalid Name or Access Code");
