@@ -26,6 +26,15 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   snapshot.forEach((doc) => {
     console.log(doc.id, doc.data());
   });
+const studentName = document.getElementById("studentName").value;
+const accessCode = document.getElementById("accessCode").value;
 
-  alert("Firestore connected! Check Console.");
+if (
+  studentName === "Aqdas" &&
+  accessCode === "TEST123"
+) {
+  alert("Login Successful!");
+} else {
+  alert("Invalid Name or Access Code");
+}");
 });
