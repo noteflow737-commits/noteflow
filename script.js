@@ -38,10 +38,11 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
     ) {
       found = true;
 
-      if (student.blocked === true) {
-        alert("Account Blocked");
-      } else {
-        alert("Login Successful!");
+  if (student.blocked === true) {
+  alert("Account Blocked");
+} else {
+  window.location.href = "notes.html";
+}
       }
     }
   });
