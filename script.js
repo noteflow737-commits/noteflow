@@ -1,9 +1,4 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAM8zmBFYHixjn6mF8Sdr98Bz-pZruoZpo",
@@ -15,23 +10,6 @@ const firebaseConfig = {
   measurementId: "G-532ZZEWX8T"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+initializeApp(firebaseConfig);
 
 console.log("Firebase connected");
-
-document.getElementById("loginBtn").addEventListener("click", async () => {
-
-  const studentName = document.getElementById("studentName").value;
-  const accessCode = document.getElementById("accessCode").value;
-
-  if (
-    studentName === "Aqdas" &&
-    accessCode === "TEST123"
-  ) {
-    alert("Login Successful!");
-  } else {
-    alert("Invalid Name or Access Code");
-  }
-
-});
