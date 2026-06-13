@@ -59,14 +59,13 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
         await updateDoc(doc(db, "students", studentDoc.id), {
           deviceId: currentDeviceId
         });
-
-        window.location.href = "notes.html";
+        window.location.href = "classes.html";
         return;
       }
 
       // Same device: allow login
       if (student.deviceId === currentDeviceId) {
-        window.location.href = "notes.html";
+       window.location.href = "classes.html";
         return;
       }
 
