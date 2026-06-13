@@ -2,60 +2,153 @@
 
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NoteFlow Classes</title>
 
 <style>
 body{
-  font-family: Arial, sans-serif;
-  background:#f5f5f5;
-  padding:20px;
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    padding:20px;
 }
 
 .card{
-  background:white;
-  padding:20px;
-  border-radius:10px;
-  margin-bottom:15px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:15px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
 button{
-  padding:10px 15px;
-  margin:5px;
-  cursor:pointer;
+    display:block;
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:none;
+    border-radius:8px;
+    background:#007bff;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
 }
 
-#sections,
-#subjects{
-  margin-top:20px;
+button:hover{
+    opacity:0.9;
+}
+
+.hidden{
+    display:none;
 }
 </style>
 
 </head>
 <body>
 
-<h1>NoteFlow</h1>
-
 <div class="card">
-<h2>Select Class</h2>
+<h1>NoteFlow</h1>
+<h3>Select Your Class</h3>
 
-<button onclick="showClass('8')">Class 8</button> <button onclick="showClass('9')">Class 9</button> <button onclick="showClass('10')">Class 10</button>
+<button onclick="showClass8()">Class 8</button> <button onclick="showClass9()">Class 9</button> <button onclick="showClass10()">Class 10</button>
 
 </div>
 
-<div id="sections" class="card" style="display:none;"></div>
-
-<div id="subjects" class="card" style="display:none;"></div>
+<div id="content" class="card hidden"></div>
 
 <script>
 
-function showClass(cls){
+const content = document.getElementById("content");
 
-const sections = document.getElementById("sections");
-const subjects = document.getElementById("subjects");
+function showClass8(){
+content.classList.remove("hidden");
+content.innerHTML = `
+<h2>Class 8</h2>
 
-  function showClass(cls){
+<button onclick="showSubjects8()">A1</button>
+<button onclick="showSubjects8()">A2</button>
+<button onclick="showSubjects8()">A3</button>
+`;
+}
 
-subjects.style.display = "none";
+function showClass9(){
+content.classList.remove("hidden");
+content.innerHTML = `
+<h2>Class 9</h2>
 
+<button onclick="showScienceSubjects()">Science 1</button>
+<button onclick="showScienceSubjects()">Science 2</button>
+<button onclick="showCommerceSubjects()">Commerce</button>
+`;
+}
+
+function showClass10(){
+content.classList.remove("hidden");
+content.innerHTML = `
+<h2>Class 10</h2>
+
+<button onclick="showScienceSubjects()">Science 1</button>
+<button onclick="showScienceSubjects()">Science 2</button>
+<button onclick="showCommerceSubjects()">Commerce</button>
+`;
+}
+
+function showSubjects8(){
+content.innerHTML = `
+<h2>Class 8 Subjects</h2>
+
+<button>English Literature</button>
+<button>English Language</button>
+<button>Hindi Literature</button>
+<button>Computer</button>
+<button>Physics</button>
+<button>Chemistry</button>
+<button>Biology</button>
+<button>Geography</button>
+<button>History & Civics</button>
+<button>Maths</button>
+<button>Moral Science</button>
+<button>Sanskrit</button>
+`;
+}
+
+function showScienceSubjects(){
+content.innerHTML = `
+<h2>Science Subjects</h2>
+
+<button>English Literature</button>
+<button>English Language</button>
+<button>Hindi Literature</button>
+<button>Computer</button>
+<button>EVA</button>
+<button>Physics</button>
+<button>Chemistry</button>
+<button>Biology</button>
+<button>Geography</button>
+<button>History & Civics</button>
+<button>Maths</button>
+`;
+}
+
+function showCommerceSubjects(){
+content.innerHTML = `
+<h2>Commerce Subjects</h2>
+
+<button>English Literature</button>
+<button>English Language</button>
+<button>Hindi Literature</button>
+<button>Computer</button>
+<button>EVA</button>
+<button>Accounts</button>
+<button>Economics</button>
+<button>Commercial Studies</button>
+<button>Geography</button>
+<button>History & Civics</button>
+<button>Maths</button>
+`;
+}
+
+</script>
+
+</body>
+</html>
