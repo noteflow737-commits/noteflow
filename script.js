@@ -40,7 +40,7 @@ const deviceId = getDeviceId();
 
 for (const studentDoc of snapshot.docs) {
 
-```
+
 const student = studentDoc.data();
 
 if (
@@ -74,7 +74,7 @@ if (
   alert("This account is already being used on another device.");
   return;
 }
-```
+
 
 }
 
