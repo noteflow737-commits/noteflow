@@ -8,7 +8,7 @@ updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
+apiKey: "AIzaSyAM8zmBFYHixjn6mF8Sdr98Bz-pZruoZpo",
 authDomain: "noteflow-9aa06.firebaseapp.com",
 projectId: "noteflow-9aa06",
 storageBucket: "noteflow-9aa06.firebasestorage.app",
@@ -36,7 +36,6 @@ const username = document.getElementById("studentName").value.trim();
 const accessCode = document.getElementById("accessCode").value.trim();
 
 const snapshot = await getDocs(collection(db, "students"));
-
 const deviceId = getDeviceId();
 
 for (const studentDoc of snapshot.docs) {
