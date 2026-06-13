@@ -8,49 +8,46 @@ updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-apiKey: "AIzaSyAM8zmBFYHixjn6mF8Sdr98Bz-pZruoZpo",
+apiKey: "YOUR_API_KEY",
 authDomain: "noteflow-9aa06.firebaseapp.com",
 projectId: "noteflow-9aa06",
 storageBucket: "noteflow-9aa06.firebasestorage.app",
 messagingSenderId: "459942250903",
-appId: "1:459942250903:web:46036bf79f951f1ca91cd2",
-measurementId: "G-532ZZEWX8T"
+appId: "1:459942250903:web:46036bf79f951f1ca91cd2"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 function getDeviceId() {
-let deviceId = localStorage.getItem("deviceId");
+let id = localStorage.getItem("deviceId");
 
-if (!deviceId) {
-deviceId = crypto.randomUUID();
-localStorage.setItem("deviceId", deviceId);
+if (!id) {
+id = crypto.randomUUID();
+localStorage.setItem("deviceId", id);
 }
 
-return deviceId;
+return id;
 }
 
 document.getElementById("loginBtn").addEventListener("click", async () => {
 
-const studentName = document.getElementById("studentName").value.trim();
+const username = document.getElementById("studentName").value.trim();
 const accessCode = document.getElementById("accessCode").value.trim();
 
 const snapshot = await getDocs(collection(db, "students"));
-const currentDeviceId = getDeviceId();
 
-let found = false;
+const deviceId = getDeviceId();
 
 for (const studentDoc of snapshot.docs) {
 
+```
 const student = studentDoc.data();
 
 if (
-  student.username === studentName &&
+  student.username === username &&
   student.accessCode === accessCode
 ) {
-
-  found = true;
 
   if (student.blocked === true) {
     alert("Account Blocked");
@@ -62,7 +59,7 @@ if (
     await updateDoc(
       doc(db, "students", studentDoc.id),
       {
-        deviceId: currentDeviceId
+        deviceId: deviceId
       }
     );
 
@@ -70,7 +67,7 @@ if (
     return;
   }
 
-  if (student.deviceId === currentDeviceId) {
+  if (student.deviceId === deviceId) {
     window.location.href = "classes.html";
     return;
   }
@@ -82,7 +79,5 @@ if (
 
 }
 
-if (!found) {
 alert("Invalid Name or Access Code");
-}
 });
