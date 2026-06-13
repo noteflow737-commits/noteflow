@@ -43,7 +43,6 @@ let found = false;
 
 for (const studentDoc of snapshot.docs) {
 
-```
 const student = studentDoc.data();
 
 if (
